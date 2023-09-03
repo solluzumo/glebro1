@@ -71,6 +71,9 @@ async def edit_bank_handler(message: types.Message):
 #Начало сценария удаления данных одного из реквизитов
 @dp.message_handler(commands=['delete_bank'])
 async def delete_bank_handler(message: types.Message):
+    if str(message.from_user.id) not in admin_id:
+        await message.reply(f'У вас нет доступа к этой команде.')
+        return
     banks = get_available_banks()  # Получаем доступные банки из файла rate.txt
 
     if not banks:
